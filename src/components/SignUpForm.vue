@@ -1,11 +1,12 @@
 <template>
   <div class="form-container">
-    <form>
+    <form @submit.prevent="handlesubmit">
         <label>Email</label>
         <input type="email" v-model="email" required placeholder="johndoe@gmail.com">
 
         <label>Password</label>
         <input type="password" v-model="password">
+        <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
         <label>Role</label>
         <select v-model="role">
@@ -21,7 +22,9 @@
 
         </select>
         <label>Skills</label>
-        <input type="text" v-model="tempskills" @keyup.alt="addskill">
+        <input type="text" v-model="tempskills" @keyup="addskill">
+        <h6>Type a skill then press Enter . Click on the skill to delete</h6>
+
 
         <div v-for="skill in skills" :key="skill" class="pill">
             <span @click="deleteskill(skill)">{{ skill }}</span>
@@ -32,6 +35,10 @@
         <div class="terms">
             <input type="checkbox" required v-model="terms">
             <label>Accept terms and conditions</label>
+        </div>
+        <br><br>
+        <div class="submit">
+            <button>Create an Account</button>
         </div>
         <!-- <div>
             <input value="vin" type="checkbox" v-model="names">
@@ -47,10 +54,10 @@
         </div> -->
   </form>
   </div>
-  <p>Email: {{ email }}</p>
+  <!-- <p>Email: {{ email }}</p>
   <p>Password: {{ password }}</p>
   <p>Role: {{ role }}</p>
-  <p>Terms: {{ terms }}</p>
+  <p>Terms: {{ terms }}</p> -->
 
 
 
@@ -68,11 +75,12 @@ export default {
             terms: false,
             tempskills: '',
             skills: [],
+            passwordError: '',
         }
     },
     methods: {
         addskill(e){
-            if(e.key === ',' && this.tempskills){
+            if(e.key === 'Enter' && this.tempskills){
                 if(!this.skills.includes(this.tempskills)){
                     this.skills.push(this.tempskills)
                     this.tempskills = ''
@@ -84,6 +92,12 @@ export default {
             this.skills = this.skills.filter((item) => {
                 return skill !== item
             })
+        },
+        handlesubmit(){
+            // console.log('Form Submited');
+            // validation
+            this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 6 chars long'
+
         },
     }
 
@@ -154,11 +168,24 @@ input[type="checkbox"]{
     position: relative;
     top: 2px;
 }
+button{
+    background: blue;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+
+}
 input:focus {
   border-color: #6200ea; /* Highlight border color on focus */
 }
 
 input[type="email"]::placeholder {
   color: #bbbbbb; /* Light placeholder color */
+}
+.error{
+    color: red;
+    font-size: 0.2 rem;
+
 }
 </style>
