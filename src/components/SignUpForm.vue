@@ -13,7 +13,7 @@
             <option value="Designer">Designer</option>
         </select>
         <label>Skills</label>
-        <input type="text" v-model="tempskills" @keyup="addskill">
+        <input type="text" v-model="tempskills" @keyup.alt="addskill">
 
         <div v-for="skill in skills" :key="skill" class="pill">
             {{ skill }}
@@ -63,9 +63,12 @@ export default {
     },
     methods: {
         addskill(e){
-            if(e.key === ',' & this.tempskills){
-                this.skills.push(this.tempskills)
-                this.tempskills = ''
+            if(e.key === ',' && this.tempskills){
+                if(!this.skills.includes(this.tempskills)){
+                    this.skills.push(this.tempskills)
+                    this.tempskills = ''
+                }
+
             }
 
         }
