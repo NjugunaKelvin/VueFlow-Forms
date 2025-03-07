@@ -2,14 +2,43 @@
   <div class="form-container">
     <form>
         <label>Email</label>
-        <input type="email" v-model="email" required>
+        <input type="email" v-model="email" required placeholder="johndoe@gmail.com">
 
         <label>Password</label>
         <input type="text" v-model="password">
+
+        <label>Role</label>
+        <select v-model="role">
+            <option value="Developer">Web Developer</option>
+            <option value="Designer">Designer</option>
+        </select>
+        <div class="terms">
+            <input type="checkbox" required v-model="terms"></input>
+            <label>Accept terms and conditions</label>
+        </div>
+        <div>
+            <input value="vin" type="checkbox" v-model="names"></input>
+            <label>Vin</label>
+        </div>
+        <div>
+            <input type="checkbox" value="emma" v-model="names"></input>
+            <label>Emma</label>
+        </div>
+        <div>
+            <input type="checkbox" value="kian" v-model="names"></input>
+            <label>Kian</label>
+        </div>
   </form>
   </div>
   <p>Email: {{ email }}</p>
   <p>Email: {{ password }}</p>
+  <p>Email: {{ role }}</p>
+  <p>Terms: {{ terms }}</p>
+  <p>Names: {{ names }}</p>
+
+
+
+
 
 </template>
 
@@ -19,6 +48,9 @@ export default {
         return {
             email: '',
             password: '',
+            role: 'Designer',
+            terms: false,
+            names: [],
         }
     },
 
@@ -57,7 +89,7 @@ label {
   color: #ffffff; /* Light text color for contrast */
 }
 
-input{
+input, select{
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
@@ -68,7 +100,13 @@ input{
   outline: none;
   transition: border-color 0.3s;
 }
-
+input[type="checkbox"]{
+    display: inline-block;
+    width: 16px;
+    margin: 0px 10px 0 0;
+    position: relative;
+    top: 2px;
+}
 input:focus {
   border-color: #6200ea; /* Highlight border color on focus */
 }
