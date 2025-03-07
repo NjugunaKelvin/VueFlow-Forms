@@ -9,16 +9,25 @@
 
         <label>Role</label>
         <select v-model="role">
-            <option value="Developer">Web Developer</option>
+            <option value="Web Developer">Web Developer</option>
             <option value="Designer">Designer</option>
+            <option value="Mobile App Developer">Mobile App Developer</option>
+            <option value="DevOps">DevOps</option>
+            <option value="Database Engineer">Database Engineer</option>
+            <option value="Cloud Architect">Cloud Architect</option>
+            <option value="AI/ML Specialist">AI/ML Specialist</option>
+            <option value="Frontend Developer">Frontend Developer</option>
+            <option value="Backend Developer">Backend Developer</option>
+
         </select>
         <label>Skills</label>
         <input type="text" v-model="tempskills" @keyup.alt="addskill">
 
         <div v-for="skill in skills" :key="skill" class="pill">
-            {{ skill }}
+            <span @click="deleteskill(skill)">{{ skill }}</span>
 
         </div>
+        <br><br>
 
         <div class="terms">
             <input type="checkbox" required v-model="terms">
@@ -70,8 +79,12 @@ export default {
                 }
 
             }
-
-        }
+        },
+        deleteskill(skill){
+            this.skills = this.skills.filter((item) => {
+                return skill !== item
+            })
+        },
     }
 
 }
@@ -101,6 +114,20 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.pill{
+    display: flex;
+    flex-direction: row;
+    margin: 20px 10px 0 0;
+    background: #eee;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    color: #777;
+    font-weight: bold;
+    padding: 6px 12px;
+
+
+
 }
 
 label {
