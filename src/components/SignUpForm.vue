@@ -5,36 +5,43 @@
         <input type="email" v-model="email" required placeholder="johndoe@gmail.com">
 
         <label>Password</label>
-        <input type="text" v-model="password">
+        <input type="password" v-model="password">
 
         <label>Role</label>
         <select v-model="role">
             <option value="Developer">Web Developer</option>
             <option value="Designer">Designer</option>
         </select>
+        <label>Skills</label>
+        <input type="text" v-model="tempskills" @keyup="addskill">
+
+        <div v-for="skill in skills" :key="skill" class="pill">
+            {{ skill }}
+
+        </div>
+
         <div class="terms">
-            <input type="checkbox" required v-model="terms"></input>
+            <input type="checkbox" required v-model="terms">
             <label>Accept terms and conditions</label>
         </div>
-        <div>
-            <input value="vin" type="checkbox" v-model="names"></input>
+        <!-- <div>
+            <input value="vin" type="checkbox" v-model="names">
             <label>Vin</label>
         </div>
         <div>
-            <input type="checkbox" value="emma" v-model="names"></input>
+            <input type="checkbox" value="emma" v-model="names">
             <label>Emma</label>
         </div>
         <div>
-            <input type="checkbox" value="kian" v-model="names"></input>
+            <input type="checkbox" value="kian" v-model="names">
             <label>Kian</label>
-        </div>
+        </div> -->
   </form>
   </div>
   <p>Email: {{ email }}</p>
-  <p>Email: {{ password }}</p>
-  <p>Email: {{ role }}</p>
+  <p>Password: {{ password }}</p>
+  <p>Role: {{ role }}</p>
   <p>Terms: {{ terms }}</p>
-  <p>Names: {{ names }}</p>
 
 
 
@@ -50,9 +57,19 @@ export default {
             password: '',
             role: 'Designer',
             terms: false,
-            names: [],
+            tempskills: '',
+            skills: [],
         }
     },
+    methods: {
+        addskill(e){
+            if(e.key === ',' & this.tempskills){
+                this.skills.push(this.tempskills)
+                this.tempskills = ''
+            }
+
+        }
+    }
 
 }
 </script>
